@@ -1,0 +1,103 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font: bold 28px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 16px Arial, sans-serif; fill: #374151; }
+      .label { font: bold 16px Arial, sans-serif; fill: #111827; }
+      .small { font: 13px Arial, sans-serif; fill: #374151; }
+      .box { fill: #ffffff; stroke: #374151; stroke-width: 2; rx: 14; }
+      .vpc { fill: #f9fafb; stroke: #111827; stroke-width: 3; rx: 18; }
+      .public { fill: #ecfdf5; stroke: #059669; stroke-width: 2; rx: 12; }
+      .app { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 12; }
+      .db { fill: #fef3c7; stroke: #d97706; stroke-width: 2; rx: 12; }
+      .arrow { stroke: #111827; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .dashed { stroke: #6b7280; stroke-width: 2; stroke-dasharray: 6 6; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <text x="50" y="45" class="title">AWS Multi-AZ Three-Tier Web Architecture Lab</text>
+  <text x="50" y="75" class="subtitle">Internet-facing ALB, private EC2 app layer, NAT-based outbound access, and private RDS database layer</text>
+
+  <!-- Internet -->
+  <rect x="470" y="105" width="260" height="70" class="box"/>
+  <text x="600" y="135" text-anchor="middle" class="label">Internet Users</text>
+  <text x="600" y="158" text-anchor="middle" class="small">HTTP request to ALB DNS</text>
+
+  <!-- VPC -->
+  <rect x="50" y="215" width="1100" height="490" class="vpc"/>
+  <text x="75" y="245" class="label">VPC: saa-lab1-vpc | CIDR: 10.0.0.0/16</text>
+
+  <!-- ALB -->
+  <rect x="420" y="275" width="360" height="75" class="box"/>
+  <text x="600" y="305" text-anchor="middle" class="label">Application Load Balancer</text>
+  <text x="600" y="329" text-anchor="middle" class="small">Public entry point | HTTP : 80</text>
+
+  <!-- AZ Headers -->
+  <text x="210" y="390" text-anchor="middle" class="label">Availability Zone A</text>
+  <text x="990" y="390" text-anchor="middle" class="label">Availability Zone B</text>
+
+  <!-- Public Subnets -->
+  <rect x="105" y="410" width="300" height="70" class="public"/>
+  <text x="255" y="438" text-anchor="middle" class="label">Public Subnet A</text>
+  <text x="255" y="462" text-anchor="middle" class="small">ALB node | route to IGW</text>
+
+  <rect x="795" y="410" width="300" height="70" class="public"/>
+  <text x="945" y="438" text-anchor="middle" class="label">Public Subnet B</text>
+  <text x="945" y="462" text-anchor="middle" class="small">ALB node | route to IGW</text>
+
+  <!-- App Subnets -->
+  <rect x="105" y="515" width="300" height="75" class="app"/>
+  <text x="255" y="545" text-anchor="middle" class="label">Private App Subnet A</text>
+  <text x="255" y="569" text-anchor="middle" class="small">EC2 app-a | no public IP</text>
+
+  <rect x="795" y="515" width="300" height="75" class="app"/>
+  <text x="945" y="545" text-anchor="middle" class="label">Private App Subnet B</text>
+  <text x="945" y="569" text-anchor="middle" class="small">EC2 app-b | no public IP</text>
+
+  <!-- DB Subnets -->
+  <rect x="105" y="625" width="300" height="55" class="db"/>
+  <text x="255" y="650" text-anchor="middle" class="label">Private DB Subnet A</text>
+  <text x="255" y="670" text-anchor="middle" class="small">RDS subnet group</text>
+
+  <rect x="795" y="625" width="300" height="55" class="db"/>
+  <text x="945" y="650" text-anchor="middle" class="label">Private DB Subnet B</text>
+  <text x="945" y="670" text-anchor="middle" class="small">RDS subnet group</text>
+
+  <!-- RDS -->
+  <rect x="455" y="620" width="290" height="70" class="box"/>
+  <text x="600" y="650" text-anchor="middle" class="label">RDS MySQL</text>
+  <text x="600" y="674" text-anchor="middle" class="small">Private | Public access disabled</text>
+
+  <!-- NAT/IGW -->
+  <rect x="860" y="275" width="220" height="65" class="box"/>
+  <text x="970" y="303" text-anchor="middle" class="label">NAT Gateway</text>
+  <text x="970" y="326" text-anchor="middle" class="small">Outbound only for app tier</text>
+
+  <rect x="120" y="275" width="220" height="65" class="box"/>
+  <text x="230" y="303" text-anchor="middle" class="label">Internet Gateway</text>
+  <text x="230" y="326" text-anchor="middle" class="small">Public subnet internet route</text>
+
+  <!-- Arrows -->
+  <line x1="600" y1="175" x2="600" y2="275" class="arrow"/>
+  <line x1="600" y1="350" x2="255" y2="515" class="arrow"/>
+  <line x1="600" y1="350" x2="945" y2="515" class="arrow"/>
+  <line x1="255" y1="590" x2="520" y2="620" class="arrow"/>
+  <line x1="945" y1="590" x2="680" y2="620" class="arrow"/>
+
+  <line x1="255" y1="515" x2="900" y2="340" class="dashed"/>
+  <line x1="945" y1="515" x2="970" y2="340" class="dashed"/>
+
+  <!-- SG notes -->
+  <rect x="420" y="410" width="360" height="145" class="box"/>
+  <text x="600" y="438" text-anchor="middle" class="label">Security Group Flow</text>
+  <text x="600" y="465" text-anchor="middle" class="small">Internet → ALB SG on HTTP/HTTPS</text>
+  <text x="600" y="490" text-anchor="middle" class="small">ALB SG → App SG on HTTP/80</text>
+  <text x="600" y="515" text-anchor="middle" class="small">App SG → DB SG on MySQL/3306</text>
+  <text x="600" y="540" text-anchor="middle" class="small">EC2 and RDS are not directly public</text>
+
+  <!-- Legend -->
+  <text x="75" y="730" class="small">Solid arrows = application traffic. Dashed arrows = outbound package/bootstrap access through NAT Gateway.</text>
+</svg>
