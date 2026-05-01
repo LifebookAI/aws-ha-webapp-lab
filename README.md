@@ -10,6 +10,11 @@ The goal of this lab was not just to deploy resources, but to understand how AWS
 
 ---
 
+
+## Architecture Diagram
+
+![AWS Multi-AZ Three-Tier Web Architecture](architecture/aws-ha-webapp-architecture.svg)
+
 ## Architecture
 
 Internet -> Application Load Balancer -> Private EC2 App Layer -> Private RDS Database Layer
@@ -183,3 +188,4 @@ Cleanup was documented in:
 - Add HTTPS with ACM and Route 53
 - Add AWS Systems Manager Session Manager for private instance access
 - Enable Multi-AZ RDS for a production version
+
